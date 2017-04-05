@@ -17,7 +17,6 @@ var client = new Twitter({
   access_token_secret: access_token_secret
 });
 
-var arguments = process.argv;
 var action = process.argv[2];
 
 switch (action) {
@@ -54,8 +53,14 @@ function myTweets(params) {
 
 function spotifySong(song) {
 
-    var track = [song];
-    if (typeof arguments !== 'undefined') {
+    var track = [];
+
+    if (action === "do-what-it-says") {
+        track = [song];
+    }
+
+    if (action === "spotify-this-song") {
+        var arguments = process.argv;
         for (var i = 3; i < arguments.length; i++) {
             track.push(arguments[i]);
         }
@@ -81,8 +86,12 @@ function spotifySong(song) {
 
 function movieThis(movieRandom) {
 
-    var movie = [movieRandom];
-    if(typeof arguments !== 'undefined') {
+    if (action === "do-what-it-says") {
+        movie = [movieRandom];
+    }
+
+    if (action === "movie-this") {
+        var arguments = process.argv;
         for (var i = 3; i < arguments.length; i++) {
             movie.push(arguments[i]);
         }
